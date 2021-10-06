@@ -13,4 +13,12 @@ workflows:
       - build:
           post-steps:
             - jira/notify
+      - deploy:
+          name: Dev East
+          post-steps:
+            - jira/notify:
+                environment_type: development
+                job_type: deployment
+          requires:
+            - build
 
