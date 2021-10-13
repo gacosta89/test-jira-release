@@ -15,14 +15,17 @@ version: 2.1
 workflows:
   build:
     jobs:
-      - build:
-          post-steps:
-            - jira/notify
+      - build
       - deploy:
+          filters:
+            branches:
+              only:
+                - /rc\/.*/
           name: Dev East
           post-steps:
             - jira/notify:
-                environment_type: development
+                environment_type: testing
+                environment: ui-qa
                 job_type: deployment
           requires:
             - build
